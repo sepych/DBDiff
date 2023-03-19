@@ -2,6 +2,7 @@
 
 namespace DBDiff;
 
+use DBDiff\Params\DefaultParams;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\Filesystem\Filesystem;
 
@@ -11,9 +12,9 @@ class Templater
 
   private string $up;
   private string $down;
-  private object $params;
+  private DefaultParams $params;
 
-  function __construct(object $params, string $up, string $down)
+  function __construct(DefaultParams $params, string $up, string $down)
   {
     $this->params = $params;
     $this->up = $up;

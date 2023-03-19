@@ -1,6 +1,9 @@
 <?php
+
 namespace DBDiff;
 
+use DBDiff\Exceptions\CLIException;
+use DBDiff\Exceptions\FSException;
 use DBDiff\Params\ParamsFactory;
 use DBDiff\DB\DiffCalculator;
 use DBDiff\SQLGen\SQLGenerator;
@@ -13,6 +16,11 @@ use Exception;
 class DBDiff
 {
 
+  /**
+   * @return void
+   * @throws CLIException
+   * @throws FSException
+   */
   public function run(): void
   {
     // Increase memory limit
@@ -41,8 +49,8 @@ class DBDiff
         }
 
         // Generate
-        $templater = new Templater($params, $up, $down);
-        $templater->output();
+        $template = new Templater($params, $up, $down);
+        $template->output();
       }
 
       Logger::success("Completed");

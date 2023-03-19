@@ -2,14 +2,27 @@
 namespace DBDiff\Params;
 
 use DBDiff\Exceptions\CLIException;
+use DBDiff\Exceptions\FSException;
+use ReflectionClass;
 
 
 class ParamsFactory
 {
+  private static DefaultParams $params;
 
-  public static function get(): object
+
+  /**
+   * @return DefaultParams
+   * @throws CLIException
+   * @throws FSException
+   */
+  public static function get(): DefaultParams
   {
-    $params = new DefaultParams;
+    if (!isset(self::$params)) {
+      self::$params = new DefaultParams;
+    } else {
+      return self::$params;
+    }
 
     $cli = new CLIGetter;
     $paramsCLI = $cli->getParams();
@@ -20,19 +33,32 @@ class ParamsFactory
 
     $fs = new FSGetter($paramsCLI);
     $paramsFS = $fs->getParams();
-    $params = (new ParamsFactory)->merge($params, $paramsFS);
+    self::$params = self::mergeParams(self::$params, $paramsFS);
+    self::$params = self::mergeParams(self::$params, $paramsCLI);
 
-    $params = (new ParamsFactory)->merge($params, $paramsCLI);
-
-    if (empty($params->server1)) {
+    if (empty(self::$params->server1)) {
       throw new CLIException("A server is required");
     }
 
-    return $params;
+    return self::$params;
   }
 
-  protected function merge($obj1, $obj2): object
+  public static function injectParams(DefaultParams $params): void
   {
-    return (object)array_merge((array)$obj1, (array)$obj2);
+    self::$params = $params;
+  }
+
+  private static function mergeParams(DefaultParams $params, object $paramsFS): DefaultParams
+  {
+    // merge params using reflection
+    $reflection = new ReflectionClass($params);
+    $properties = $reflection->getProperties();
+    foreach ($properties as $property) {
+      $name = $property->getName();
+      if (isset($paramsFS->$name)) {
+        $params->$name = $paramsFS->$name;
+      }
+    }
+    return $params;
   }
 }

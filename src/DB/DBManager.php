@@ -1,6 +1,7 @@
 <?php
 namespace DBDiff\DB;
 
+use DBDiff\Params\DefaultParams;
 use Exception;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use DBDiff\Exceptions\DBException;
@@ -17,7 +18,7 @@ class DBManager
     $this->capsule = new Capsule;
   }
 
-  public function connect($params): void
+  public function connect(DefaultParams $params): void
   {
     foreach ($params->input as $key => $input) {
       if ($key === 'kind') {
@@ -38,7 +39,7 @@ class DBManager
     }
   }
 
-  public function testResources($params): void
+  public function testResources(DefaultParams $params): void
   {
     $this->testResource($params->input['source'], 'source');
     $this->testResource($params->input['target'], 'target');

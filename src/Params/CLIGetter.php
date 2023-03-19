@@ -10,9 +10,13 @@ use StdClass;
 class CLIGetter implements ParamsGetter
 {
 
-  public function getParams(): StdClass
+  /**
+   * @return DefaultParams
+   * @throws CLIException
+   */
+  public function getParams(): DefaultParams
   {
-    $params = new StdClass;
+    $params = new DefaultParams();
 
     $cliFactory = new CliFactory;
     $context = $cliFactory->newContext($GLOBALS);

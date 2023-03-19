@@ -30,7 +30,7 @@ class DBData
     $sourceTables = $this->manager->getTables('source');
     $targetTables = $this->manager->getTables('target');
 
-    if (isset($params->tablesToIgnore)) {
+    if (!empty($params->tablesToIgnore)) {
       $sourceTables = array_diff($sourceTables, $params->tablesToIgnore);
       $targetTables = array_diff($targetTables, $params->tablesToIgnore);
     }

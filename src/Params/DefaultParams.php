@@ -1,4 +1,5 @@
 <?php
+
 namespace DBDiff\Params;
 
 
@@ -42,7 +43,7 @@ class DefaultParams
    By default will output to the same directory the command is run in if no directory is
    specified. If a directory is specified, it should exist, otherwise an error will be thrown
   */
-  public $output = null;
+  public ?string $output = null;
 
   /*
    Enable or disable warnings
@@ -55,4 +56,6 @@ class DefaultParams
   */
   public array $input = [];
 
+  public array $fieldsToIgnore = [];
+  public array $tablesToIgnore = [];
 }

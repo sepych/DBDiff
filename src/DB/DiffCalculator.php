@@ -5,6 +5,7 @@ use DBDiff\DB\Schema\DBSchema;
 use DBDiff\DB\Schema\TableSchema;
 use DBDiff\DB\Data\DBData;
 use DBDiff\DB\Data\TableData;
+use DBDiff\Params\DefaultParams;
 
 
 class DiffCalculator
@@ -15,7 +16,7 @@ class DiffCalculator
     $this->manager = new DBManager;
   }
 
-  public function getDiff($params): array
+  public function getDiff(DefaultParams $params): array
   {
     // Connect and test accessibility
     $this->manager->connect($params);
