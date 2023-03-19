@@ -1,4 +1,7 @@
-<?php namespace DBDiff\Exceptions;
+<?php
+namespace DBDiff\Exceptions;
 
 
-class DataException extends BaseException {}
+class DataException extends BaseException
+{
+}

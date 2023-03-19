@@ -1,4 +1,7 @@
-<?php namespace DBDiff\Exceptions;
+<?php
+namespace DBDiff\Exceptions;
 
 
-class CLIException extends BaseException {}
+class CLIException extends BaseException
+{
+}

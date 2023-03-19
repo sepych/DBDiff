@@ -1,11 +1,14 @@
-<?php namespace DBDiff\Diff;
+<?php
+namespace DBDiff\Diff;
 
 
-class AlterTableDropConstraint {
+class AlterTableDropConstraint
+{
 
-    function __construct($table, $name, $diff) {
-        $this->table = $table;
-        $this->name = $name;
-        $this->diff = $diff;
-    }
+  function __construct($table, $name, $diff)
+  {
+    $this->table = $table;
+    $this->name = $name;
+    $this->diff = $diff;
+  }
 }

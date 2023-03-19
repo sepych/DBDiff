@@ -1,10 +1,13 @@
-<?php namespace DBDiff\Diff;
+<?php
+namespace DBDiff\Diff;
 
 
-class InsertData {
+class InsertData
+{
 
-    function __construct($table, $diff) {
-        $this->table = $table;
-        $this->diff = $diff;
-    }
+  function __construct($table, $diff)
+  {
+    $this->table = $table;
+    $this->diff = $diff;
+  }
 }

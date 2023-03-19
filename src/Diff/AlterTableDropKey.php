@@ -1,11 +1,14 @@
-<?php namespace DBDiff\Diff;
+<?php
+namespace DBDiff\Diff;
 
 
-class AlterTableDropKey {
+class AlterTableDropKey
+{
 
-    function __construct($table, $key, $diff) {
-        $this->table = $table;
-        $this->key = $key;
-        $this->diff = $diff;
-    }
+  function __construct($table, $key, $diff)
+  {
+    $this->table = $table;
+    $this->key = $key;
+    $this->diff = $diff;
+  }
 }

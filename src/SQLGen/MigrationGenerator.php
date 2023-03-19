@@ -1,17 +1,23 @@
-<?php namespace DBDiff\SQLGen;
+<?php
+namespace DBDiff\SQLGen;
 
 
-class MigrationGenerator {
+use ReflectionClass;
 
-    public static function generate($diffs, $method) {
-        $sql = "";
-        foreach ($diffs as $diff) {
-            $reflection = new \ReflectionClass($diff);
-            $sqlGenClass = __NAMESPACE__."\\DiffToSQL\\".$reflection->getShortName()."SQL";
-            $gen = new $sqlGenClass($diff);
-            $sql .= $gen->$method()."\n";
-        }
-        return $sql;
+class MigrationGenerator
+{
+
+  public static function generate($diffs, $method): string
+  {
+    $sql = "";
+    foreach ($diffs as $diff) {
+      $reflection = new ReflectionClass($diff);
+      $sqlGenClass = __NAMESPACE__."\\DiffToSQL\\".$reflection->getShortName()."SQL";
+      $gen = new $sqlGenClass($diff);
+      $sql .= $gen->$method()."\n";
     }
+
+    return $sql;
+  }
 
 }

@@ -1,11 +1,14 @@
-<?php namespace DBDiff\Diff;
+<?php
+namespace DBDiff\Diff;
 
 
-class AlterTableCollation {
+class AlterTableCollation
+{
 
-    function __construct($table, $collation, $prevCollation) {
-        $this->table  = $table;
-        $this->collation = $collation;
-        $this->prevCollation = $prevCollation;
-    }
+  function __construct($table, $collation, $prevCollation)
+  {
+    $this->table = $table;
+    $this->collation = $collation;
+    $this->prevCollation = $prevCollation;
+  }
 }

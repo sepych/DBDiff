@@ -1,58 +1,65 @@
-<?php namespace DBDiff\Params;
+<?php
+namespace DBDiff\Params;
 
 use DBDiff\Exceptions\FSException;
+use StdClass;
 use Symfony\Component\Yaml\Yaml;
 
 
-class FSGetter implements ParamsGetter {
+class FSGetter implements ParamsGetter
+{
 
-    function __construct($params) {
-        $this->params = $params;
-    }
+  function __construct($params)
+  {
+    $this->params = $params;
+  }
 
-    public function getParams() {
-        $params = new \StdClass;
-        $configFile = $this->getFile();
+  public function getParams(): StdClass
+  {
+    $params = new StdClass;
+    $configFile = $this->getFile();
 
-        if ($configFile) {
-            try {
-                $config = Yaml::parse(file_get_contents($configFile));
-                foreach ($config as $key => $value) {
-                    $this->setIn($params, $key, $value);
-                }
-            } catch (Exceptions $e) {
-                throw new FSException("Error parsing config file");
-            }
+    if ($configFile) {
+      try {
+        $config = Yaml::parse(file_get_contents($configFile));
+        foreach ($config as $key => $value) {
+          $this->setIn($params, $key, $value);
         }
-        
-        return $params;
+      } catch (Exceptions $e) {
+        throw new FSException("Error parsing config file");
+      }
     }
 
-    protected function getFile() {
-        $configFile = false;
+    return $params;
+  }
 
-        if (isset($this->params->config)) {
-            $configFile = $this->params->config;
-            if (!file_exists($configFile)) {
-                throw new FSException("Config file not found");
-            }
-        } else {
-            if (file_exists(getcwd() . '/.dbdiff')) {
-                $configFile = getcwd() . '/.dbdiff';
-            }
-        }
+  protected function getFile()
+  {
+    $configFile = false;
 
-        return $configFile;
+    if (isset($this->params->config)) {
+      $configFile = $this->params->config;
+      if ( ! file_exists($configFile)) {
+        throw new FSException("Config file not found");
+      }
+    } else {
+      if (file_exists(getcwd().'/.dbdiff')) {
+        $configFile = getcwd().'/.dbdiff';
+      }
     }
 
-    protected function setIn($obj, $key, $value) {
-        if (strpos($key, '-') !== false) {
-            $parts = explode('-', $key);
-            $array = &$obj->$parts[0];
-            $array[$parts[1]] = $value;
-        } else {
-            $obj->$key = $value;
-        }
+    return $configFile;
+  }
+
+  protected function setIn($obj, $key, $value)
+  {
+    if (str_contains($key, '-')) {
+      $parts = explode('-', $key);
+      $array = &$obj->$parts[0];
+      $array[$parts[1]] = $value;
+    } else {
+      $obj->$key = $value;
     }
+  }
 
 }

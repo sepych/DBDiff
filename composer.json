@@ -1,26 +1,33 @@
 {
-    "name": "dbdiff/dbdiff",
-    "type": "project",
-    "license": "MIT",
-    "bin": ["./dbdiff"],
-    "autoload": {
-        "psr-4": {
-            "DBDiff\\": "src/"
-        }
-    },
-    "require": {
-        "aura/cli": "2.*@dev",
-        "symfony/yaml": "2.8.*@dev",
-        "illuminate/database": "4.*",
-        "illuminate/view": "4.*",
-        "illuminate/container": "4.*",
-        "diff/diff": "2.0.*@dev"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "4.8.*@dev"
-    },
-    "scripts": {
-      "post-install-cmd": "scripts/post-install.sh",
-      "post-update-cmd": "scripts/post-install.sh"
+  "name": "dbdiff/dbdiff",
+  "type": "project",
+  "license": "MIT",
+  "bin": [
+    "./dbdiff"
+  ],
+  "autoload": {
+    "psr-4": {
+      "DBDiff\\": "src/"
     }
+  },
+  "require": {
+    "aura/cli": "^4",
+    "symfony/yaml": "^6.2",
+    "illuminate/database": "^10",
+    "illuminate/view": "^10",
+    "illuminate/container": "^10",
+    "diff/diff": "^3.3",
+    "laravel/helpers": "^1.6",
+    "ext-pdo": "*"
+  },
+  "require-dev": {
+    "ext-dom": "*",
+    "phpunit/phpunit": "^9.5"
+  },
+  "scripts": {
+    "post-install-cmd": "scripts/post-install.sh",
+    "post-update-cmd": "scripts/post-install.sh"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

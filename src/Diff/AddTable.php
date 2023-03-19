@@ -1,10 +1,13 @@
-<?php namespace DBDiff\Diff;
+<?php
+namespace DBDiff\Diff;
 
 
-class AddTable {
+class AddTable
+{
 
-    function __construct($table, $connection) {
-        $this->table = $table;
-        $this->connection = $connection;
-    }
+  function __construct($table, $connection)
+  {
+    $this->table = $table;
+    $this->connection = $connection;
+  }
 }

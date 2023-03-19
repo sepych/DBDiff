@@ -1,11 +1,14 @@
-<?php namespace DBDiff\Diff;
+<?php
+namespace DBDiff\Diff;
 
 
-class AlterTableDropColumn {
+class AlterTableDropColumn
+{
 
-    function __construct($table, $column, $diff) {
-        $this->table = $table;
-        $this->column = $column;
-        $this->diff = $diff;
-    }
+  function __construct($table, $column, $diff)
+  {
+    $this->table = $table;
+    $this->column = $column;
+    $this->diff = $diff;
+  }
 }

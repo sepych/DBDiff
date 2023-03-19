@@ -11,8 +11,8 @@ class End2EndTest extends PHPUnit\Framework\TestCase
         // db config
         $host = "127.0.0.1";
         $port = 3306;
-        $user = "root";
-        $pass = "";
+        $user = "diff";
+        $pass = "1234";
         $db1  = "diff1";
         $db2  = "diff2";
 
@@ -20,9 +20,17 @@ class End2EndTest extends PHPUnit\Framework\TestCase
         $migration_actual = 'migration_actual';
         $migration_expected = 'migration_expected';
         $dbh = new PDO("mysql:host=$host", $user, $pass);
-        $dbh->exec("DROP DATABASE `$db1`;");
+        try {
+            $dbh->exec("DROP DATABASE `$db1`;");
+        } catch (PDOException $e) {
+            // ignore
+        }
         $dbh->exec("CREATE DATABASE $db1;");
-        $dbh->exec("DROP DATABASE `$db2`;");
+        try {
+            $dbh->exec("DROP DATABASE `$db2`;");
+        } catch (PDOException $e) {
+            // ignore
+        }
         $dbh->exec("CREATE DATABASE $db2;");
 
         $db1h = new PDO("mysql:host=$host;dbname=$db1;", $user, $pass);

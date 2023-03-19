@@ -1,56 +1,58 @@
-<?php namespace DBDiff\Params;
+<?php
+namespace DBDiff\Params;
 
 
-class DefaultParams {
-    
-    // Specify the source db connection details. If there is only one
-    public $server1 = [];
+class DefaultParams
+{
 
-    // Specify the target db connection details
-    public $server2 = [];
+  // Specify the source db connection details. If there is only one
+  public array $server1 = [];
 
-    public $format = 'sql';
+  // Specify the target db connection details
+  public array $server2 = [];
 
-    // Specifies the output template, if any. By default will be plain SQL
-    public $template = '';
+  public string $format = 'sql';
 
-    // Specifies the type of diff to do either on the schema, data or both
-    public $type = 'schema';
+  // Specifies the output template, if any. By default will be plain SQL
+  public string $template = '';
 
-    // Specified whether to include the up, down or both data in the output
-    public $include = 'up';
+  // Specifies the type of diff to do either on the schema, data or both
+  public string $type = 'schema';
 
-    /* 
-     By default automated comments starting with the hash (#) character are
-     included in the output file, which can be removed with this parameter
-    */
-    public $nocomments = false;
+  // Specified whether to include the up, down or both data in the output
+  public string $include = 'up';
 
-    /* 
-     By default, DBDiff will look for a .dbdiff file in the current directory
-     which is valid YAML, which may also be overridden with a config file that
-     lists the database host, user, port and password of the source and target
-     DBs in YAML format (instead of using the command line for it), or any of
-     the other settings e.g. the format, template, type, include, no­comments.
-     Please note: a command­line parameter will always override any config file.
-    */
-    public $config = null;
+  /*
+   By default automated comments starting with the hash (#) character are
+   included in the output file, which can be removed with this parameter
+  */
+  public bool $nocomments = false;
 
-    /* 
-     By default will output to the same directory the command is run in if no directory is
-     specified. If a directory is specified, it should exist, otherwise an error will be thrown
-    */
-    public $output = null;
+  /*
+   By default, DBDiff will look for a .dbdiff file in the current directory
+   which is valid YAML, which may also be overridden with a config file that
+   lists the database host, user, port and password of the source and target
+   DBs in YAML format (instead of using the command line for it), or any of
+   the other settings e.g. the format, template, type, include, no­comments.
+   Please note: a command­line parameter will always override any config file.
+  */
+  public $config = null;
 
-    /* 
-     Enable or disable warnings
-    */
-    public $debug = false;
+  /*
+   By default will output to the same directory the command is run in if no directory is
+   specified. If a directory is specified, it should exist, otherwise an error will be thrown
+  */
+  public $output = null;
 
-    /*
-     The penultimate parameter is what to compare: db1.table1:db2.table3 or​ db1:db2 
-     This tool can compare just one table or all tables (entire db) from the database
-    */
-    public $input = [];
+  /*
+   Enable or disable warnings
+  */
+  public bool $debug = false;
+
+  /*
+   The penultimate parameter is what to compare: db1.table1:db2.table3 or​ db1:db2
+   This tool can compare just one table or all tables (entire db) from the database
+  */
+  public array $input = [];
 
 }

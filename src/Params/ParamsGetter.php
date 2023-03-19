@@ -1,6 +1,8 @@
-<?php namespace DBDiff\Params;
+<?php
+namespace DBDiff\Params;
 
 
-interface ParamsGetter {
-    public function getParams();
+interface ParamsGetter
+{
+  public function getParams();
 }
