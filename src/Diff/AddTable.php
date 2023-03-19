@@ -5,8 +5,8 @@ namespace DBDiff\Diff;
 class AddTable
 {
 
-  private $connection;
-  private $table;
+  public $connection;
+  public $table;
 
   function __construct($table, $connection)
   {

@@ -5,9 +5,9 @@ namespace DBDiff\Diff;
 class SetDBCharset
 {
 
-  private $prevCharset;
-  private $charset;
-  private $db;
+  public $prevCharset;
+  public $charset;
+  public $db;
 
   function __construct($db, $charset, $prevCharset)
   {

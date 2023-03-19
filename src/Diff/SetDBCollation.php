@@ -5,9 +5,9 @@ namespace DBDiff\Diff;
 class SetDBCollation
 {
 
-  private $prevCollation;
-  private $collation;
-  private $db;
+  public $prevCollation;
+  public $collation;
+  public $db;
 
   function __construct($db, $collation, $prevCollation)
   {

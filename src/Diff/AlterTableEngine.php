@@ -5,9 +5,9 @@ namespace DBDiff\Diff;
 class AlterTableEngine
 {
 
-  private $prevEngine;
-  private $engine;
-  private $table;
+  public $prevEngine;
+  public $engine;
+  public $table;
 
   function __construct($table, $engine, $prevEngine)
   {

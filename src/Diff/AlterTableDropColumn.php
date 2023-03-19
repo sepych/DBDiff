@@ -5,9 +5,9 @@ namespace DBDiff\Diff;
 class AlterTableDropColumn
 {
 
-  private $diff;
-  private $column;
-  private $table;
+  public $diff;
+  public $column;
+  public $table;
 
   function __construct($table, $column, $diff)
   {

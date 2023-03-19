@@ -5,9 +5,9 @@ namespace DBDiff\Diff;
 class AlterTableAddKey
 {
 
-  private $diff;
-  private $key;
-  private $table;
+  public $diff;
+  public $key;
+  public $table;
 
   function __construct($table, $key, $diff)
   {

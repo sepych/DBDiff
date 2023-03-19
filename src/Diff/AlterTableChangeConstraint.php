@@ -5,9 +5,9 @@ namespace DBDiff\Diff;
 class AlterTableChangeConstraint
 {
 
-  private $diff;
-  private $name;
-  private $table;
+  public $diff;
+  public $name;
+  public $table;
 
   function __construct($table, $name, $diff)
   {

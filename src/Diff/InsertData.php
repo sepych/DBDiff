@@ -5,8 +5,8 @@ namespace DBDiff\Diff;
 class InsertData
 {
 
-  private $diff;
-  private $table;
+  public $diff;
+  public $table;
 
   function __construct($table, $diff)
   {

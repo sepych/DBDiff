@@ -5,9 +5,9 @@ namespace DBDiff\Diff;
 class AlterTableCollation
 {
 
-  private $prevCollation;
-  private $collation;
-  private $table;
+  public $prevCollation;
+  public $collation;
+  public $table;
 
   function __construct($table, $collation, $prevCollation)
   {

@@ -5,8 +5,8 @@ namespace DBDiff\Diff;
 class UpdateData
 {
 
-  private $diff;
-  private $table;
+  public $diff;
+  public $table;
 
   function __construct($table, $diff)
   {
