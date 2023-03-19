@@ -8,8 +8,6 @@ use DBDiff\Params\ParamsFactory;
 use DBDiff\DB\DiffCalculator;
 use DBDiff\SQLGen\SQLGenerator;
 use DBDiff\Exceptions\BaseException;
-use DBDiff\Logger;
-use DBDiff\Templater;
 use Exception;
 
 
@@ -49,7 +47,7 @@ class DBDiff
         }
 
         // Generate
-        $template = new Templater($params, $up, $down);
+        $template = new Template($params, $up, $down);
         $template->output();
       }
 

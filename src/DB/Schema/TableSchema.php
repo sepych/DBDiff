@@ -1,8 +1,8 @@
 <?php
 namespace DBDiff\DB\Schema;
 
+use DBDiff\DB\DBManager;
 use Diff\Differ\MapDiffer;
-use Diff\Differ\ListDiffer;
 
 use DBDiff\Diff\AlterTableEngine;
 use DBDiff\Diff\AlterTableCollation;
@@ -19,18 +19,21 @@ use DBDiff\Diff\AlterTableAddConstraint;
 use DBDiff\Diff\AlterTableChangeConstraint;
 use DBDiff\Diff\AlterTableDropConstraint;
 
-use DBDiff\SQLGen\Schema\SQL;
-
 use DBDiff\Logger;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
+use Illuminate\Database\Connection;
 
 
 class TableSchema
 {
 
-  function __construct($manager)
+  private DBManager $manager;
+  private Connection $source;
+  private Connection $target;
+
+  function __construct(DBManager $manager)
   {
     $this->manager = $manager;
     $this->source = $this->manager->getDB('source');

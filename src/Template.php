@@ -7,7 +7,7 @@ use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\Filesystem\Filesystem;
 
 
-class Templater
+class Template
 {
 
   private string $up;
@@ -43,7 +43,7 @@ class Templater
     return "";
   }
 
-  private function getContent(): bool|string
+  private function getContent(): string
   {
     $compiler = new BladeCompiler(new Filesystem, ".");
     $template = $this->getTemplate();
@@ -58,7 +58,7 @@ class Templater
     return $content;
   }
 
-  private function getTemplate(): bool|string
+  private function getTemplate(): string
   {
     if (file_exists($this->params->template)) {
       return file_get_contents($this->params->template);

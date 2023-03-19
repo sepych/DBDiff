@@ -12,13 +12,13 @@ class ArrayDiff
 
   public static int $size = 1000;
   private $key;
-  private $dbiterator1;
-  private $dbiterator2;
+  private TableIterator $dbiterator1;
+  private TableIterator $dbiterator2;
   private array $sourceBucket;
   private array $diffBucket;
   private array $targetBucket;
 
-  function __construct($key, $dbiterator1, $dbiterator2)
+  function __construct($key, TableIterator $dbiterator1, TableIterator $dbiterator2)
   {
     $this->key = $key;
     $this->dbiterator1 = $dbiterator1;

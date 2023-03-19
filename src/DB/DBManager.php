@@ -1,4 +1,5 @@
 <?php
+
 namespace DBDiff\DB;
 
 use DBDiff\Params\DefaultParams;
@@ -39,38 +40,44 @@ class DBManager
     }
   }
 
+  /**
+   * @throws DBException
+   */
   public function testResources(DefaultParams $params): void
   {
     $this->testResource($params->input['source'], 'source');
     $this->testResource($params->input['target'], 'target');
   }
 
-  public function testResource($input, $res): void
+  /**
+   * @throws DBException
+   */
+  public function testResource(array $input, string $res): void
   {
     try {
       $this->capsule->getConnection($res);
-    } catch (Exception $e) {
+    } catch (Exception) {
       throw new DBException("Can't connect to target database");
     }
     if ( ! empty($input['table'])) {
       try {
         $this->capsule->getConnection($res)->table($input['table'])->first();
-      } catch (Exception $e) {
+      } catch (Exception) {
         throw new DBException("Can't access target table");
       }
     }
   }
 
-  public function getDB($res): Connection
+  public function getDB(string $res): Connection
   {
     return $this->capsule->getConnection($res);
   }
 
-  public function getTables($connection): array
+  public function getTables(string $connection): array
   {
     $result = $this->getDB($connection)->select("show tables");
     $arr = [];
-    foreach ($result as $key => $value) {
+    foreach ($result as $value) {
       $arr[] = array_values((array)$value)[0];
     }
 
@@ -78,14 +85,14 @@ class DBManager
 //        return array_flatten($result);
   }
 
-  public function getColumns($connection, $table)
+  public function getColumns(string $connection, string $table): array
   {
     $result = $this->getDB($connection)->select("show columns from `$table`");
 
     return array_pluck($result, 'Field');
   }
 
-  public function getKey($connection, $table): array
+  public function getKey(string $connection, string $table): array
   {
     $keys = $this->getDB($connection)->select("show indexes from `$table`");
     $ukey = [];

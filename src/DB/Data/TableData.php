@@ -1,6 +1,7 @@
 <?php
 namespace DBDiff\DB\Data;
 
+use DBDiff\DB\DBManager;
 use DBDiff\Diff\InsertData;
 use DBDiff\Diff\UpdateData;
 use DBDiff\Diff\DeleteData;
@@ -8,12 +9,19 @@ use DBDiff\Exceptions\DataException;
 use DBDiff\Logger;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpRemove;
+use Illuminate\Database\Connection;
 
 
 class TableData
 {
 
-  function __construct($manager)
+  private DBManager $manager;
+  private Connection $source;
+  private Connection $target;
+  private DistTableData $distTableData;
+  private LocalTableData $localTableData;
+
+  function __construct(DBManager $manager)
   {
     $this->manager = $manager;
     $this->source = $this->manager->getDB('source');

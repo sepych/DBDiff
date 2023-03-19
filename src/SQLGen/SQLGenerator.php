@@ -1,13 +1,13 @@
 <?php
 namespace DBDiff\SQLGen;
 
-use DBDiff\SQLGen\Schema\SchemaSQLGen;
-use DBDiff\SQLGen\DiffSorter;
 use DBDiff\Logger;
-
 
 class SQLGenerator implements SQLGenInterface
 {
+
+  private DiffSorter $diffSorter;
+  private array $diff;
 
   function __construct($diff)
   {

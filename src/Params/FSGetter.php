@@ -2,6 +2,7 @@
 namespace DBDiff\Params;
 
 use DBDiff\Exceptions\FSException;
+use Exception;
 use StdClass;
 use Symfony\Component\Yaml\Yaml;
 
@@ -25,7 +26,7 @@ class FSGetter implements ParamsGetter
         foreach ($config as $key => $value) {
           $this->setIn($params, $key, $value);
         }
-      } catch (Exceptions $e) {
+      } catch (Exception) {
         throw new FSException("Error parsing config file");
       }
     }
