@@ -5,6 +5,9 @@ namespace DBDiff\Diff;
 class DropTable
 {
 
+  private $connection;
+  private $table;
+
   function __construct($table, $connection)
   {
     $this->table = $table;

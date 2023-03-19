@@ -7,6 +7,8 @@ use DBDiff\SQLGen\SQLGenInterface;
 class AlterTableDropColumnSQL implements SQLGenInterface
 {
 
+  private $obj;
+
   function __construct($obj)
   {
     $this->obj = $obj;

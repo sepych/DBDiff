@@ -3,7 +3,6 @@ namespace DBDiff\DB\Data;
 
 use DBDiff\DB\DBManager;
 use DBDiff\Diff\InsertData;
-use DBDiff\Diff\UpdateData;
 use DBDiff\Diff\DeleteData;
 use DBDiff\Exceptions\DataException;
 use DBDiff\Logger;

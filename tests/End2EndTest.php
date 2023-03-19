@@ -7,9 +7,9 @@ require 'vendor/autoload.php';
 
 class End2EndTest extends PHPUnit\Framework\TestCase
 {
-  private static $host = "127.0.0.1";
-  private static $user = "diff";
-  private static $pass = "1234";
+  private static string $host = "127.0.0.1";
+  private static string $user = "diff";
+  private static string $pass = "1234";
 
   public function testAll()
   {

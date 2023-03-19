@@ -3,8 +3,6 @@ namespace DBDiff\Params;
 
 use DBDiff\Exceptions\CLIException;
 use Aura\Cli\CliFactory;
-use Aura\Cli\Status;
-use StdClass;
 
 
 class CLIGetter implements ParamsGetter

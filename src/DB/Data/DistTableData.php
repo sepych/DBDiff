@@ -4,7 +4,6 @@ namespace DBDiff\DB\Data;
 use DBDiff\Diff\InsertData;
 use DBDiff\Diff\UpdateData;
 use DBDiff\Diff\DeleteData;
-use DBDiff\Exceptions\DataException;
 use DBDiff\Logger;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpRemove;
@@ -12,6 +11,10 @@ use Diff\DiffOp\DiffOpRemove;
 
 class DistTableData
 {
+
+  private $target;
+  private $source;
+  private $manager;
 
   function __construct($manager)
   {

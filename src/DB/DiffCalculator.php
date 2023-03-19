@@ -11,6 +11,8 @@ use DBDiff\Params\DefaultParams;
 class DiffCalculator
 {
 
+  private DBManager $manager;
+
   function __construct()
   {
     $this->manager = new DBManager;

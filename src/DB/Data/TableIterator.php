@@ -5,6 +5,11 @@ namespace DBDiff\DB\Data;
 class TableIterator
 {
 
+  private $size;
+  private int $offset;
+  private $table;
+  private $connection;
+
   function __construct($connection, $table)
   {
     $this->connection = $connection;

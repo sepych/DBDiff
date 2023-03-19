@@ -6,13 +6,11 @@ use DBDiff\Params\ParamsFactory;
 use DBDiff\Diff\InsertData;
 use DBDiff\Diff\UpdateData;
 use DBDiff\Diff\DeleteData;
-use DBDiff\Exceptions\DataException;
 use DBDiff\Logger;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Illuminate\Database\Connection;
-use PDO;
 
 
 class LocalTableData

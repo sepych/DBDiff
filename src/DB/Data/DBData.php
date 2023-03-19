@@ -3,9 +3,6 @@ namespace DBDiff\DB\Data;
 
 use DBDiff\DB\DBManager;
 use DBDiff\Params\ParamsFactory;
-use DBDiff\Diff\SetDBCollation;
-use DBDiff\Exceptions\DataException;
-use DBDiff\Logger;
 
 
 class DBData

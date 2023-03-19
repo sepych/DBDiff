@@ -5,6 +5,10 @@ namespace DBDiff\Diff;
 class AlterTableAddKey
 {
 
+  private $diff;
+  private $key;
+  private $table;
+
   function __construct($table, $key, $diff)
   {
     $this->table = $table;
