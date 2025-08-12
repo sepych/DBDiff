@@ -4,28 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0014dfb67fb6c6b91555a2a1f13bda34",
+    "content-hash": "65bc2cd101f3ee51f7c9cbab89f2b86c",
     "packages": [
         {
             "name": "aura/cli",
-            "version": "4.0.0-alpha1",
+            "version": "3.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/auraphp/Aura.Cli.git",
-                "reference": "8270011f5e7fb81064c1c567e0884ac6339f63b3"
+                "reference": "d69cfa6d81e94e13d831e38ad9e3d53aa0f08a8b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Cli/zipball/8270011f5e7fb81064c1c567e0884ac6339f63b3",
-                "reference": "8270011f5e7fb81064c1c567e0884ac6339f63b3",
+                "url": "https://api.github.com/repos/auraphp/Aura.Cli/zipball/d69cfa6d81e94e13d831e38ad9e3d53aa0f08a8b",
+                "reference": "d69cfa6d81e94e13d831e38ad9e3d53aa0f08a8b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.0"
+                "php": ">=5.3.0"
             },
             "require-dev": {
-                "aura/di": "~4.0",
-                "phpunit/phpunit": "^8.5"
+                "aura/di": "~2.0"
             },
             "type": "library",
             "extra": {
@@ -64,9 +63,9 @@
             ],
             "support": {
                 "issues": "https://github.com/auraphp/Aura.Cli/issues",
-                "source": "https://github.com/auraphp/Aura.Cli/tree/4.0.0-alpha1"
+                "source": "https://github.com/auraphp/Aura.Cli/tree/2.2.0"
             },
-            "time": "2021-08-01T17:19:11+00:00"
+            "time": "2017-02-09T17:14:27+00:00"
         },
         {
             "name": "brick/math",
