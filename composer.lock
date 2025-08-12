@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5534d150202a7c394bea08aaadf5a513",
+    "content-hash": "7a38e72a6004caf79a235fcc774dcbff",
     "packages": [
         {
             "name": "aura/cli",
@@ -3824,11 +3824,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": {
         "aura/cli": 20
     },
-    "prefer-stable": true,
+    "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.4",
