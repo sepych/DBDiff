@@ -2,7 +2,10 @@
 namespace DBDiff\Params;
 
 use DBDiff\Exceptions\CLIException;
-use Aura\Cli\CliFactory;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 
 class CLIGetter implements ParamsGetter
@@ -16,59 +19,64 @@ class CLIGetter implements ParamsGetter
   {
     $params = new DefaultParams();
 
-    $cliFactory = new CliFactory;
-    $context = $cliFactory->newContext($GLOBALS);
-    $stdio = $cliFactory->newStdio();
-
-    $getopt = $context->getopt([
-      'server1::',
-      'server2::',
-      'format::',
-      'template::',
-      'type::',
-      'include::',
-      'nocomments::',
-      'config::',
-      'output::',
-      'debug::',
+    $inputDefinition = new InputDefinition([
+      new InputArgument('resource', InputArgument::REQUIRED, 'Resources to compare'),
+      new InputOption('server1', null, InputOption::VALUE_REQUIRED, 'Server 1 connection string'),
+      new InputOption('server2', null, InputOption::VALUE_REQUIRED, 'Server 2 connection string'),
+      new InputOption('format', null, InputOption::VALUE_REQUIRED, 'Output format'),
+      new InputOption('template', null, InputOption::VALUE_REQUIRED, 'Template to use'),
+      new InputOption('type', null, InputOption::VALUE_REQUIRED, 'Type of comparison'),
+      new InputOption('include', null, InputOption::VALUE_REQUIRED, 'Include pattern'),
+      new InputOption('nocomments', null, InputOption::VALUE_OPTIONAL, 'No comments flag'),
+      new InputOption('config', null, InputOption::VALUE_REQUIRED, 'Config file'),
+      new InputOption('output', null, InputOption::VALUE_REQUIRED, 'Output file'),
+      new InputOption('debug', null, InputOption::VALUE_OPTIONAL, 'Debug mode'),
     ]);
 
-    $input = $getopt->get(1);
-    if ($input) {
-      $params->input = $this->parseInput($input);
-    } else {
-      throw new CLIException("Missing input");
-    }
+    $input = new ArgvInput(null, $inputDefinition);
 
-    if ($getopt->get('--server1')) {
-      $params->server1 = $this->parseServer($getopt->get('--server1'));
-    }
-    if ($getopt->get('--server2')) {
-      $params->server2 = $this->parseServer($getopt->get('--server2'));
-    }
-    if ($getopt->get('--format')) {
-      $params->format = $getopt->get('--format');
-    }
-    if ($getopt->get('--template')) {
-      $params->template = $getopt->get('--template');
-    }
-    if ($getopt->get('--type')) {
-      $params->type = $getopt->get('--type');
-    }
-    if ($getopt->get('--include')) {
-      $params->include = $getopt->get('--include');
-    }
-    if ($getopt->get('--nocomments')) {
-      $params->nocomments = $getopt->get('--nocomments');
-    }
-    if ($getopt->get('--config')) {
-      $params->config = $getopt->get('--config');
-    }
-    if ($getopt->get('--output')) {
-      $params->output = $getopt->get('--output');
-    }
-    if ($getopt->get('--debug')) {
-      $params->debug = $getopt->get('--debug');
+    try {
+      $input->bind($inputDefinition);
+      
+      $resourceArg = $input->getArgument('resource');
+      if ($resourceArg) {
+        $params->input = $this->parseInput($resourceArg);
+      } else {
+        throw new CLIException("Missing input");
+      }
+
+      if ($input->getOption('server1')) {
+        $params->server1 = $this->parseServer($input->getOption('server1'));
+      }
+      if ($input->getOption('server2')) {
+        $params->server2 = $this->parseServer($input->getOption('server2'));
+      }
+      if ($input->getOption('format')) {
+        $params->format = $input->getOption('format');
+      }
+      if ($input->getOption('template')) {
+        $params->template = $input->getOption('template');
+      }
+      if ($input->getOption('type')) {
+        $params->type = $input->getOption('type');
+      }
+      if ($input->getOption('include')) {
+        $params->include = $input->getOption('include');
+      }
+      if ($input->hasOption('nocomments') && $input->getOption('nocomments') !== null) {
+        $params->nocomments = $input->getOption('nocomments');
+      }
+      if ($input->getOption('config')) {
+        $params->config = $input->getOption('config');
+      }
+      if ($input->getOption('output')) {
+        $params->output = $input->getOption('output');
+      }
+      if ($input->hasOption('debug') && $input->getOption('debug') !== null) {
+        $params->debug = $input->getOption('debug');
+      }
+    } catch (\Exception $e) {
+      throw new CLIException("Error parsing command line arguments: " . $e->getMessage());
     }
 
     return $params;
