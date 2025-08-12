@@ -64,7 +64,7 @@ class Template
       return file_get_contents($this->params->template);
     }
     
-    return 'SQL_UP = u"""\\n{!! $up !!}\\n"""\\nSQL_DOWN = u"""\\n{!! $down !!}\\n"""';
+    return 'SQL_UP = u"""\\n{!! '.$this->up.' !!}\\n"""\\nSQL_DOWN = u"""\\n{!! '.$this->down.' !!}\\n"""';
 
 
 //    return "#---------- UP ----------\n{!! $this->up !!}\n#---------- DOWN ----------\n{!! $this->down !!}";
