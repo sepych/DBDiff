@@ -1,16 +1,18 @@
 {
-  "name": "dbdiff/dbdiff",
-  "type": "project",
-  "license": "MIT",
   "bin": [
     "./dbdiff"
   ],
+  "name": "sepych/dbdiff",
+  "description": "Database schema comparison tool",
+  "type": "library",
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "DBDiff\\": "src/"
     }
   },
   "require": {
+    "php": ">=7.4",
     "aura/cli": "^4",
     "symfony/yaml": "^7.3",
     "illuminate/database": "^v12",
