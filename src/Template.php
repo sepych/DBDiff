@@ -47,11 +47,11 @@ class Template
   {
     $compiler = new BladeCompiler(new Filesystem, ".");
     $template = $this->getTemplate();
-    $compiled = $compiler->compileString(' ?>'.$template);
+    $compiled = $compiler->compileString($template);
     $up = trim($this->up, "\n");
     $down = trim($this->down, "\n");
     ob_start();
-    eval($compiled);
+    eval('?>' . $compiled);
     $content = ob_get_contents();
     ob_end_clean();
 
