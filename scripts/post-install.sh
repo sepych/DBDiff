@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 text="
 Thank you for installing \x1B[1mDBDiff\x1B[0m!
