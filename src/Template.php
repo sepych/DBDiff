@@ -63,7 +63,10 @@ class Template
     if (file_exists($this->params->template)) {
       return file_get_contents($this->params->template);
     }
+    
+    return 'SQL_UP = u"""\\n{!! $up !!}\\n"""\\nSQL_DOWN = u"""\\n{!! $down !!}\\n"""';
 
-    return "#---------- UP ----------\n{!! $this->up !!}\n#---------- DOWN ----------\n{!! $this->down !!}";
+
+//    return "#---------- UP ----------\n{!! $this->up !!}\n#---------- DOWN ----------\n{!! $this->down !!}";
   }
 }
