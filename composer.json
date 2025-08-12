@@ -15,9 +15,9 @@
     "php": ">=7.4",
     "symfony/console": "^6.0",
     "symfony/yaml": "^7.3",
-    "illuminate/database": "^v12",
-    "illuminate/view": "^12",
-    "illuminate/container": "^12",
+    "illuminate/database": ">=10.0",
+    "illuminate/view": ">=10.0",
+    "illuminate/container": ">=10.0",
     "diff/diff": "^3.4.0",
     "laravel/helpers": "^v1.7.2",
     "ext-pdo": "*"
