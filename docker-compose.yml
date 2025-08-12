@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+  dbdiff-dev-php:
+    container_name: dbdiff-dev-php
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-dev
+    networks:
+      - internal
+    volumes:
+      - .:/var/www/dbdiff
+      - vendor:/var/www/dbdiff/vendor
+      - ./docker/volumes/xdebug-profile:/opt/xdebug-profile
+    environment:
+      IS_LOCAL_DEVELOPMENT: "true"
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  vendor:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: $PWD/vendor
+  xdebug-profile:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: $PWD/xdebug-profile
