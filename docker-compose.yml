@@ -1,12 +1,30 @@
 version: "3.3"
 services:
+  local-dbdiff-database:
+    image: mariadb:10.6
+    command: --default-authentication-plugin=mysql_native_password --general-log=1 --general-log-file=/var/log/mysql/general-log.log
+    container_name: local-dbdiff-database
+    networks:
+      - local-db-network
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: LocalDB
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev
+    cap_add:
+      - SYS_NICE # CAP_SYS_NICE
+    volumes:
+      - ./local-db-data:/var/lib/mysql
   dbdiff-dev-php:
+    depends_on:
+      - local-dbdiff-database
     container_name: dbdiff-dev-php
     build:
       context: .
       dockerfile: docker/Dockerfile-dev
     networks:
-      - internal
+      - local-db-network
     volumes:
       - .:/var/www/dbdiff
       - vendor:/var/www/dbdiff/vendor
@@ -15,8 +33,7 @@ services:
       IS_LOCAL_DEVELOPMENT: "true"
 
 networks:
-  internal:
-    driver: bridge
+  local-db-network:
 
 volumes:
   vendor:

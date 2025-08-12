@@ -7,15 +7,18 @@ require 'vendor/autoload.php';
 
 class End2EndTest extends PHPUnit\Framework\TestCase
 {
-  private static string $host = "127.0.0.1";
-  private static string $user = "diff";
-  private static string $pass = "1234";
+  private static string $host = "local-dbdiff-database";
+  private static string $user = "root";
+  private static string $pass = "password";
+  
+  private static string $dbname1 = "db1";
+    private static string $dbname2 = "db2";
 
   public function testAll()
   {
     // db config
-    $db1 = "diff1";
-    $db2 = "diff2";
+    $db1 = self::$dbname1;
+    $db2 = self::$dbname2;
     $this->initDatabases($db1, $db2);
     $db1h = $this->getConnection($db1);
     $db1h->exec(file_get_contents('tests/end2end/db1-up.sql'));
@@ -49,8 +52,8 @@ class End2EndTest extends PHPUnit\Framework\TestCase
   public function testSimple()
   {
     // db config
-    $db1 = "diff1";
-    $db2 = "diff2";
+    $db1 = self::$dbname1;
+    $db2 = self::$dbname2;
     $this->initDatabases($db1, $db2);
     $db1h = $this->getConnection($db1);
     $db1h->exec(file_get_contents('tests/end2end/db1-simple-up.sql'));
