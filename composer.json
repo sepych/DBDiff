@@ -12,17 +12,17 @@
   },
   "require": {
     "aura/cli": "^4",
-    "symfony/yaml": "^6.2",
-    "illuminate/database": "^10",
-    "illuminate/view": "^10",
-    "illuminate/container": "^10",
-    "diff/diff": "^3.3",
-    "laravel/helpers": "^1.6",
+    "symfony/yaml": "^7.3",
+    "illuminate/database": "^v12",
+    "illuminate/view": "^12",
+    "illuminate/container": "^12",
+    "diff/diff": "^3.4.0",
+    "laravel/helpers": "^v1.7.2",
     "ext-pdo": "*"
   },
   "require-dev": {
     "ext-dom": "*",
-    "phpunit/phpunit": "^9.5"
+    "phpunit/phpunit": "^10.0"
   },
   "scripts": {
     "post-install-cmd": "scripts/post-install.sh",
