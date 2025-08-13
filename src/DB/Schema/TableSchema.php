@@ -48,10 +48,28 @@ class TableSchema
     $collation = $status[0]->Collation;
 
     $schema = $this->{$connection}->select("SHOW CREATE TABLE `$table`")[0]->{'Create Table'};
-    $lines = array_map(function ($el) {
-      return trim($el);
-    }, explode("\n", $schema));
-    $lines = array_slice($lines, 1, -1);
+    
+    // Extract only the content between the first opening parenthesis and the matching closing parenthesis
+    preg_match('/\((.*)\)(?:\s+(?:PARTITION|ENGINE|COLLATE|DEFAULT|COMMENT))/s', $schema, $matches);
+    
+    // If the regex didn't match (e.g., no partitioning or other clauses after the definition)
+    // try a simpler pattern to extract content between parentheses
+    if (empty($matches)) {
+        preg_match('/\((.*)\)/s', $schema, $matches);
+    }
+    
+    if (isset($matches[1])) {
+        $content = $matches[1];
+        $lines = array_map(function ($el) {
+          return trim($el);
+        }, explode("\n", $content));
+    } else {
+        // Fallback to the original method if both regexes fail
+        $lines = array_map(function ($el) {
+          return trim($el);
+        }, explode("\n", $schema));
+        $lines = array_slice($lines, 1, -1);
+    }
 
     $columns = [];
     $keys = [];
@@ -59,6 +77,8 @@ class TableSchema
 
     foreach ($lines as $line) {
       preg_match("/`([^`]+)`/", $line, $matches);
+      if (empty($matches)) continue; // Skip lines without identifiers
+      
       $name = $matches[1];
       $line = trim($line, ',');
       if (starts_with($line, '`')) { // column
