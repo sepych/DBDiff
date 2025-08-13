@@ -14,7 +14,10 @@ class DefaultParams
 
   public string $format = 'sql';
 
-  // Specifies the output template, if any. By default will be plain SQL
+  /**
+   * @deprecated 
+   * Specifies the output template, if any. By default will be plain SQL
+   */
   public string $template = '';
 
   // Specifies the type of diff to do either on the schema, data or both

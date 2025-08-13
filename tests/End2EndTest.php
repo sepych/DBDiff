@@ -31,7 +31,6 @@ class End2EndTest extends PHPUnit\Framework\TestCase
     ob_start();
     $params = $this->getDefaultParams($db1, $db2);
     $params->output = "./tests/end2end/$migration_actual";
-    $params->template = "templates/simple-db-migrate.tmpl";
     ParamsFactory::injectParams($params);
     $dbDiff = new DBDiff\DBDiff;
     $dbDiff->run();
@@ -45,7 +44,7 @@ class End2EndTest extends PHPUnit\Framework\TestCase
     // TODO: Apply the migration actual DOWN to the target database and expect there to be the same expected differences again
     // TODO: Ensure the database is emptied/reset after each test
 
-    $this->assertEquals($migration_actual_file, $migration_expected_file);
+    $this->assertEquals($migration_expected_file, $migration_actual_file);
     unlink("./tests/end2end/$migration_actual");
   }
 
@@ -66,22 +65,16 @@ class End2EndTest extends PHPUnit\Framework\TestCase
     $params->type = "schema";
     $params->include = "up";
     $params->output = $output;
-    $params->template = "templates/simple-db-migrate.tmpl";
     ParamsFactory::injectParams($params);
     $dbDiff = new DBDiff\DBDiff;
     $dbDiff->run();
     ob_end_clean();
 
     $contents = file_get_contents($output);
-    $expected = 'SQL_UP = u"""
-ALTER TABLE `aa` ADD `pass` varchar(255) DEFAULT NULL;
+    $expected = "ALTER TABLE `aa` ADD `pass` varchar(255) DEFAULT NULL;
 ALTER TABLE `aa` DROP `er`;
-"""
-SQL_DOWN = u"""
-
-"""
-';
-    $this->assertEquals($contents, $expected);
+";
+    $this->assertEquals($expected, $contents);
     unlink($output);
   }
 

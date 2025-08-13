@@ -24,7 +24,8 @@ class Template
   public function output(): void
   {
     $content = $this->getComments();
-    $content .= $this->getContent();
+    $content .= $this->up;
+    
     if (is_null($this->params->output)) {
       Logger::info("Writing migration file to ".getcwd()."/migration.sql");
       file_put_contents('migration.sql', $content);
@@ -41,32 +42,5 @@ class Template
     }
 
     return "";
-  }
-
-  private function getContent(): string
-  {
-    $compiler = new BladeCompiler(new Filesystem, ".");
-    $template = $this->getTemplate();
-    $compiled = $compiler->compileString($template);
-    $up = trim($this->up, "\n");
-    $down = trim($this->down, "\n");
-    ob_start();
-    eval('?>' . $compiled);
-    $content = ob_get_contents();
-    ob_end_clean();
-
-    return $content;
-  }
-
-  private function getTemplate(): string
-  {
-    if (file_exists($this->params->template)) {
-      return file_get_contents($this->params->template);
-    }
-    
-    return 'SQL_UP = u"""\\n{!! '.$this->up.' !!}\\n"""\\nSQL_DOWN = u"""\\n{!! '.$this->down.' !!}\\n"""';
-
-
-//    return "#---------- UP ----------\n{!! $this->up !!}\n#---------- DOWN ----------\n{!! $this->down !!}";
   }
 }
