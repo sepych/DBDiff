@@ -49,26 +49,50 @@ class TableSchema
 
     $schema = $this->{$connection}->select("SHOW CREATE TABLE `$table`")[0]->{'Create Table'};
     
-    // Extract only the content between the first opening parenthesis and the matching closing parenthesis
-    preg_match('/\((.*)\)(?:\s+(?:PARTITION|ENGINE|COLLATE|DEFAULT|COMMENT))/s', $schema, $matches);
-    
-    // If the regex didn't match (e.g., no partitioning or other clauses after the definition)
-    // try a simpler pattern to extract content between parentheses
-    if (empty($matches)) {
-        preg_match('/\((.*)\)/s', $schema, $matches);
+    // Find the start and end positions of the main table definition (between parentheses)
+    $startPos = strpos($schema, '(');
+    if ($startPos === false) {
+      // Handle edge case where there's no parenthesis
+      return [
+        'engine' => $engine,
+        'collation' => $collation,
+        'columns' => [],
+        'keys' => [],
+        'constraints' => [],
+      ];
     }
     
-    if (isset($matches[1])) {
-        $content = $matches[1];
-        $lines = array_map(function ($el) {
-          return trim($el);
-        }, explode("\n", $content));
+    // Start position is right after the opening parenthesis
+    $startPos++;
+    
+    // Find the matching closing parenthesis by parsing from left to right
+    // This handles nested parentheses correctly
+    $depth = 1;
+    $endPos = $startPos;
+    $length = strlen($schema);
+    
+    while ($depth > 0 && $endPos < $length) {
+      $char = $schema[$endPos];
+      if ($char === '(') {
+        $depth++;
+      } elseif ($char === ')') {
+        $depth--;
+      }
+      $endPos++;
+    }
+    
+    // Back up one position to get to the actual closing parenthesis
+    $endPos--;
+    
+    // Extract the content between parentheses
+    if ($endPos > $startPos) {
+      $content = substr($schema, $startPos, $endPos - $startPos);
+      $lines = array_map(function ($el) {
+        return trim($el);
+      }, explode("\n", $content));
     } else {
-        // Fallback to the original method if both regexes fail
-        $lines = array_map(function ($el) {
-          return trim($el);
-        }, explode("\n", $schema));
-        $lines = array_slice($lines, 1, -1);
+      // Fallback in case something went wrong
+      $lines = [];
     }
 
     $columns = [];
@@ -76,8 +100,14 @@ class TableSchema
     $constraints = [];
 
     foreach ($lines as $line) {
+      // Skip empty lines
+      if (empty(trim($line))) continue;
+      
+      // Try to extract identifier in backticks
       preg_match("/`([^`]+)`/", $line, $matches);
-      if (empty($matches)) continue; // Skip lines without identifiers
+      
+      // Skip lines without identifiers (like comments or empty lines)
+      if (empty($matches)) continue;
       
       $name = $matches[1];
       $line = trim($line, ',');
